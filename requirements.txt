@@ -1,0 +1,8 @@
+torch
+torchvision
+torchtext
+spacy
+ipykernel
+matplotlib
+scikit-learn
+einops
