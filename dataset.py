@@ -1,16 +1,10 @@
-import io
-import spacy
 from collections import Counter
 from collections import defaultdict 
-import torch.nn as nn
-import torch.optim as optim
-import torchvision.models as models
 import torchvision.transforms as transforms
-import torchvision
 import torch
-from  torchtext.vocab import vocab
+from torchtext.vocab import vocab
 from torchtext.data.utils import get_tokenizer
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import Dataset
 from torch.nn.utils.rnn import pad_sequence
 from PIL import Image
 
@@ -79,7 +73,8 @@ class TrainDataset(FlickrDataset):
 
     
     def __getitem__(self, index):
-        image = Image.open(self.train_image_paths[index]).convert("RGB")
+        image_label = self.train_image_paths[index]
+        image = Image.open(image_label).convert("RGB")
         image_tensor = self.transform(image)
                 
         caption = self.train_captions[index]
@@ -91,7 +86,7 @@ class TrainDataset(FlickrDataset):
         ])
                 
         
-        return image_tensor, tensor
+        return image_label, image_tensor, tensor
     
 class TestDataset(FlickrDataset):
     def __init__(self, captions_path, images_path, transform=transforms.ToTensor()):
@@ -102,7 +97,8 @@ class TestDataset(FlickrDataset):
 
     
     def __getitem__(self, index):
-        image = Image.open(self.test_image_paths[index]).convert("RGB")
+        image_label = self.test_image_paths[index]
+        image = Image.open(image_label).convert("RGB")
         image_tensor = self.transform(image)
                 
         caption = self.test_captions[index]
@@ -114,7 +110,7 @@ class TestDataset(FlickrDataset):
         ])
                 
         
-        return image_tensor, tensor
+        return image_label, image_tensor, tensor
 
 
 class Collate:
@@ -122,9 +118,10 @@ class Collate:
         self.pad_idx = pad_idx
 
     def __call__(self, batch):
-        imgs = torch.stack([item[0] for item in batch], dim=0)
-        targets = [item[1] for item in batch]
+        img_labels = torch.stack([item[0] for item in batch], dim=0)
+        imgs = torch.stack([item[1] for item in batch], dim=0)
+        targets = [item[2] for item in batch]
         targets = pad_sequence(targets, batch_first=False, padding_value=self.pad_idx)
 
-        return imgs, targets
+        return img_labels, imgs, targets
     
