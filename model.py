@@ -1,51 +1,31 @@
-import io
-import spacy
-from collections import Counter
-from collections import defaultdict 
+# Referenced from https://github.com/aladdinpersson/Machine-Learning-Collection/blob/master/ML/Pytorch/more_advanced/image_captioning/model.py
+
 import torch.nn as nn
-import torch.optim as optim
 import torchvision.models as models
-import torchvision.transforms as transforms
-import torchvision
 import torch
-from  torchtext.vocab import vocab
-from torchtext.data.utils import get_tokenizer
-from torch.utils.data import DataLoader, Dataset
-from torch.nn.utils.rnn import pad_sequence
-from PIL import Image
 
 
 class EncoderCNN(nn.Module):
-    def __init__(self, embed_size, train=False):
+    def __init__(self, embed_size):
         super(EncoderCNN, self).__init__()
-        self.use_pretrained = not train
-        self.inception = models.inception_v3(pretrained=self.use_pretrained, aux_logits=True) # TODO - aux_logits=False giving issues
-        self.inception.fc = nn.Linear(self.inception.fc.in_features, embed_size)
+        self.cnn = models.resnext101_32x8d(weights="DEFAULT")
+        
+        self.cnn.fc = nn.Linear(self.cnn.fc.in_features, embed_size)
         # make sure output of cnn model is embed size
         
-        for name, param in self.inception.named_parameters():
+        for name, param in self.cnn.named_parameters():
             if "fc.weight" in name or "fc.bias" in name:
                 param.requires_grad = True
             else:
-                param.requires_grad = train
+                param.requires_grad = False
         
         self.relu = nn.ReLU()
         self.dropout = nn.Dropout(0.5)
                 
-        
-        # self.main = nn.Sequential(
-        #     inception,
-        #     nn.ReLU(),
-        #     nn.Dropout(0.5)
-        # )
 
     def forward(self, images):
-        inception_output = self.inception(images)
-        try:
-            return self.dropout(self.relu(inception_output.logits))
-        except AttributeError:
-            # inference
-            return self.dropout(self.relu(inception_output))
+        cnn_out = self.cnn(images)
+        return self.dropout(self.relu(cnn_out))
     
 
 class DecoderRNN(nn.Module):
@@ -60,9 +40,8 @@ class DecoderRNN(nn.Module):
 
     def forward(self, features, captions):
         embeddings = self.dropout(self.embed(captions))
-        # import pdb;pdb.set_trace()
-        # print(embeddings.size())
-        # print(features.unsqueeze(0).size())
+        # unsqueeze to at time step as first dimension
+        # torch.cat with caption embeddings to make timestep-dimensioned inputs
         embeddings = torch.cat((features.unsqueeze(0), embeddings), dim=0)
         hiddens, _ = self.lstm(embeddings)
         outputs = self.linear(hiddens)
@@ -77,8 +56,6 @@ class CNNtoRNN(nn.Module):
 
     def forward(self, images, captions):
         features = self.encoder(images)
-        # print(features.size())
-        # print(captions.size())
         outputs = self.decoder(features, captions)
         return outputs
 
