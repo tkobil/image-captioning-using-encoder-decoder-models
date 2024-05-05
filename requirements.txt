@@ -6,3 +6,4 @@ ipykernel
 matplotlib
 scikit-learn
 einops
+nltk
