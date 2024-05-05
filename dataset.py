@@ -118,7 +118,7 @@ class Collate:
         self.pad_idx = pad_idx
 
     def __call__(self, batch):
-        img_labels = torch.stack([item[0] for item in batch], dim=0)
+        img_labels = [item[0] for item in batch]
         imgs = torch.stack([item[1] for item in batch], dim=0)
         targets = [item[2] for item in batch]
         targets = pad_sequence(targets, batch_first=False, padding_value=self.pad_idx)
