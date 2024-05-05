@@ -95,7 +95,7 @@ with open('epoch_loss.csv', 'w') as epoch_loss_file:
 
         epoch_losses.append(epoch_loss)
         print(f"EPOCH {epoch} LOSS: {epoch_loss}")
-        epoch_loss_file.write(f'{epoch}, {epoch_loss}')
+        epoch_loss_file.write(f'{epoch}, {epoch_loss}\n')
         
         if epoch_loss < min_loss:
             torch.save({
@@ -108,9 +108,7 @@ with open('epoch_loss.csv', 'w') as epoch_loss_file:
         model.eval()
         print(model.caption_image(sample_img, sample_vocab))
 
-import matplotlib.pyplot as plt    
-plt.imshow(sample_img.T.cpu())
-plt.savefig('foo.pdf')
+
 
 
         
