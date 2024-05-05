@@ -108,9 +108,6 @@ with open('epoch_loss.csv', 'w') as epoch_loss_file:
         model.eval()
         print(model.caption_image(sample_img, sample_vocab))
 
-import matplotlib.pyplot as plt    
-plt.imshow(sample_img.T.cpu())
-plt.savefig('foo.pdf')
 
 
         
