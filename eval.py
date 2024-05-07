@@ -3,6 +3,7 @@ import torch
 import torchvision.transforms as transforms
 from dataset import TestDataset
 from model import CNNtoRNN
+from model_gru import CNNtoRNN as CNNtoRNNGru
 import matplotlib.pyplot as plt  
 from nltk.translate.bleu_score import sentence_bleu
 from nltk.translate.gleu_score import sentence_gleu
@@ -33,6 +34,11 @@ def get_model(model_name):
     if model_name == "ResNextCNNtoRNNSingleLayer":
         model =  CNNtoRNN(embed_size=256, hidden_size=256, vocab_size=len(test_dataset.caption_vocab), num_layers=1).to(device)
         checkpoint = torch.load('./ResNextCNNtoRNNSingleLayer.pt')
+        model.load_state_dict(checkpoint['model_state_dict'])
+        return model
+    elif model_name == "ResNextCnntoRNN3Layer":
+        model =  CNNtoRNNGru(embed_size=256, hidden_size=256, vocab_size=len(test_dataset.caption_vocab), num_layers=3).to(device)
+        checkpoint = torch.load('./ResNextCNNtoRNN3Layer.pt')
         model.load_state_dict(checkpoint['model_state_dict'])
         return model
 
