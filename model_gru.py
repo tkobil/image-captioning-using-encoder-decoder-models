@@ -68,7 +68,7 @@ class CNNtoRNN(nn.Module):
             
 
             for _ in range(max_length):
-                hiddens, states = self.decoder.lstm(encoded_image, states)
+                hiddens, states = self.decoder.gru(encoded_image, states)
                 output = self.decoder.linear(hiddens.squeeze(0))
                 predicted = output.argmax(1)
                 predicted_word = vocabulary.lookup_token(predicted.item())

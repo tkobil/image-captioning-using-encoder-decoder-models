@@ -5,7 +5,8 @@ import torch
 from torch.utils.data import DataLoader
 
 from dataset import TrainDataset, TestDataset, Collate
-from model import CNNtoRNN
+# from model import CNNtoRNN
+from model_gru import CNNtoRNN
 
 IMAGES_PATH = './flickr8/Images'
 CAPTIONS_PATH = './flickr8/captions.txt'
@@ -56,7 +57,7 @@ device = (
 
 # Note, train and test dataset vocab is the same!
 
-model = CNNtoRNN(embed_size=256, hidden_size=256, vocab_size=len(train_dataset.caption_vocab), num_layers=1).to(device)
+model = CNNtoRNN(embed_size=256, hidden_size=256, vocab_size=len(train_dataset.caption_vocab), num_layers=3).to(device)
 criterion = nn.CrossEntropyLoss(ignore_index=train_dataset.caption_vocab['<pad>'])
 optimizer = optim.Adam(model.parameters(), lr=3e-4)
 
