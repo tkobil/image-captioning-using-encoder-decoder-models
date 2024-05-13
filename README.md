@@ -28,6 +28,8 @@ Please see the `results/` directory for epoch loss data in csv files. We've incl
 - `resnext_lstm_eval_3_layer.ipynb`
 - `resnext_gru_eval_single_layer.ipynb`
 
+We also have a notebook comparing the epoch losses of each model in `model_comparison_graphs.ipynb`.
+
 `eval.ipynb` is provided as a reference template notebook for evaluating a model.
 
 NOTE: `.pt` model files/weights are available upon request. We have NOT included
