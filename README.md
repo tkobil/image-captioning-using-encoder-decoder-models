@@ -26,7 +26,7 @@ Please see the `results/` directory for epoch loss data in csv files. We've incl
 - `resnext_gru_eval_3_layer.ipynb`
 - `resnext_lstm_eval_single_layer.ipynb`
 - `resnext_lstm_eval_3_layer.ipynb`
-- `resnect_gru_eval_single_layer.ipynb`
+- `resnext_gru_eval_single_layer.ipynb`
 
 `eval.ipynb` is provided as a reference template notebook for evaluating a model.
 
