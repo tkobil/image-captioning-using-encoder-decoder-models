@@ -56,11 +56,10 @@ device = (
 )
 
 # Note, train and test dataset vocab is the same!
-
-model = CNNtoRNN(embed_size=256, hidden_size=256, vocab_size=len(train_dataset.caption_vocab), num_layers=3).to(device)
+model = CNNtoRNN(embed_size=256, hidden_size=256, vocab_size=len(train_dataset.caption_vocab), num_layers=1).to(device)
 criterion = nn.CrossEntropyLoss(ignore_index=train_dataset.caption_vocab['<pad>'])
 optimizer = optim.Adam(model.parameters(), lr=3e-4)
-
+#optimizer = optim.Adadelta(model.parameters(), lr=3e-4, weight_decay=0.00001)
 
 epoch_losses = []
 
@@ -104,7 +103,7 @@ with open('epoch_loss.csv', 'w') as epoch_loss_file:
                 'model_state_dict': model.state_dict(),
                 'optimizer_state_dict': optimizer.state_dict(),
                 'loss': epoch_loss,
-                }, f'./epoch={epoch}_model.pt')
+                }, f'./gru_single_layer/epoch={epoch}_model.pt')
         
         model.eval()
         print(model.caption_image(sample_img, sample_vocab))
