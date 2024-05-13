@@ -1,4 +1,4 @@
-# DL Final Project
+# Image Captioning on Flickr8k Using Encoder-Decoder Models
 
 ### Download Flickr8k
 Download the [Flickr8k Dataset](https://www.kaggle.com/datasets/adityajn105/flickr8k), and unzip into a `flickr8k` directory
