@@ -1,4 +1,4 @@
-# DL Final Project
+# Image Captioning on Flickr8k Using Encoder-Decoder Models
 
 ### Download Flickr8k
 Download the [Flickr8k Dataset](https://www.kaggle.com/datasets/adityajn105/flickr8k), and unzip into a `flickr8k` directory
@@ -27,6 +27,8 @@ Please see the `results/` directory for epoch loss data in csv files. We've incl
 - `resnext_lstm_eval_single_layer.ipynb`
 - `resnext_lstm_eval_3_layer.ipynb`
 - `resnext_gru_eval_single_layer.ipynb`
+
+We also have a notebook comparing the epoch losses of each model in `model_comparison_graphs.ipynb`.
 
 `eval.ipynb` is provided as a reference template notebook for evaluating a model.
 
