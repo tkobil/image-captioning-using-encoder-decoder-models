@@ -1,5 +1,8 @@
 # DL Final Project
 
+### Download Flickr8k
+Download the [Flickr8k Dataset](https://www.kaggle.com/datasets/adityajn105/flickr8k), and unzip into a `flickr8k` directory
+
 ### Set up virtual environment
     python3 -m venv venv
     . venv/bin/activate
@@ -13,16 +16,19 @@
 ### Run training loop
     python main.py
 
-### Run Evaluation
-    python eval.py <model_name>
+### Choosing the model type
+We provide both LSTM and GRU based models. Please see `model.py` and `model_gru.py` respectively.
 
-Where `<model_name> references one of our saved models. For example:
-    python eval.py ResNextCNNtoRNNSingleLayer
+### Evaluating Models
+Please see the `results/` directory for epoch loss data in csv files. We've included 
+`.ipynb` notebooks for each model to analyze various metrics and run inference.
 
-This will output BLEU, GLEU, METEOR scores, as well as number of parameters.
-For example:
-    BLEU SCORE: 2.0062791424886875e-78
-    GLEU SCORE: 0.016666666666666666
-    METEOR SCORE: 0.3357603569554028
-    TOTAL PARAMS: 92422528
-    TOTAL TRAINABLE PARAMS 5680192
+- `resnext_gru_eval_3_layer.ipynb`
+- `resnext_lstm_eval_single_layer.ipynb`
+- `resnext_lstm_eval_3_layer.ipynb`
+- `resnect_gru_eval_single_layer.ipynb`
+
+`eval.ipynb` is provided as a reference template notebook for evaluating a model.
+
+NOTE: `.pt` model files/weights are available upon request. We have NOT included
+them in this repository due to the size of the model files.
