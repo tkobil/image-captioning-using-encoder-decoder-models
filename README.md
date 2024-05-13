@@ -1,5 +1,8 @@
 # DL Final Project
 
+### Download Flickr8k
+Download the [Flickr8k Dataset](https://www.kaggle.com/datasets/adityajn105/flickr8k), and unzip into a `flickr8k` directory
+
 ### Set up virtual environment
     python3 -m venv venv
     . venv/bin/activate
