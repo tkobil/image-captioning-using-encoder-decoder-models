@@ -20,17 +20,18 @@ Download the [Flickr8k Dataset](https://www.kaggle.com/datasets/adityajn105/flic
 We provide both LSTM and GRU based models. Please see `model.py` and `model_gru.py` respectively.
 
 ### Evaluating Models
+- We have a notebook comparing the epoch losses of each model in `model_comparison_graphs.ipynb`.
+
 Please see the `results/` directory for epoch loss data in csv files. We've included 
 `.ipynb` notebooks for each model to analyze various metrics and run inference.
 
-- `resnext_gru_eval_3_layer.ipynb`
-- `resnext_lstm_eval_single_layer.ipynb`
-- `resnext_lstm_eval_3_layer.ipynb`
-- `resnext_gru_eval_single_layer.ipynb`
+    1. `resnext_gru_eval_3_layer.ipynb`
+    2. `resnext_lstm_eval_single_layer.ipynb`
+    3. `resnext_lstm_eval_3_layer.ipynb`
+    4. `resnext_gru_eval_single_layer.ipynb`
 
-We also have a notebook comparing the epoch losses of each model in `model_comparison_graphs.ipynb`.
 
 `eval.ipynb` is provided as a reference template notebook for evaluating a model.
 
 NOTE: `.pt` model files/weights are available upon request. We have NOT included
-them in this repository due to the size of the model files.
+them in this repository due to the size of the model files exceeding GIT allowable limits.
